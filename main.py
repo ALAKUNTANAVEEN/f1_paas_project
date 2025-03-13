@@ -17,17 +17,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Serve static files (CSS, JS)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# Jinja2 template engine
 templates = Jinja2Templates(directory="templates")
 
 @app.get("/")
 def home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-# ✅ Include routers
 app.include_router(auth.router)
 app.include_router(drivers.router, prefix="/drivers")
 app.include_router(teams.router, prefix="/teams")
@@ -74,7 +71,6 @@ def team_details(team_name: str, request: Request):
     
     return templates.TemplateResponse("team_details.html", {"request": request, "team": team.to_dict()})
 
-# ✅ Driver Details Page
 @app.get("/drivers/details")
 def driver_details_page(request: Request, name: str):
     from google.cloud import firestore
@@ -87,7 +83,6 @@ def driver_details_page(request: Request, name: str):
     driver_data = driver_doc.to_dict()
     return templates.TemplateResponse("driver_details.html", {"request": request, "driver": driver_data})
 
-# ✅ Team Details Page
 @app.get("/teams/details")
 def team_details_page(request: Request, name: str):
     from google.cloud import firestore
