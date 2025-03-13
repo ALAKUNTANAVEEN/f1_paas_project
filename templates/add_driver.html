@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Add Driver{% endblock %}
+
+{% block content %}
+<h1>Add a New F1 Driver</h1>
+<form id="add-driver-form">
+    <label>Name:</label><input type="text" id="name" required><br>
+    <label>Age:</label><input type="number" id="age" required><br>
+    <label>Total Pole Positions:</label><input type="number" id="pole_positions"><br>
+    <label>Total Race Wins:</label><input type="number" id="race_wins"><br>
+    <label>Total Points Scored:</label><input type="number" id="points"><br>
+    <label>Total World Titles:</label><input type="number" id="world_titles"><br>
+    <label>Total Fastest Laps:</label><input type="number" id="fastest_laps"><br>
+    <label>Team:</label><input type="text" id="team"><br>
+    <button type="submit">Add Driver</button>
+</form>
+<script src="/static/scripts.js"></script>
+{% endblock %}

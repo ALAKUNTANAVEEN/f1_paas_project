@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Query Drivers</h1>
+
+<form id="query-driver-form">
+    <label>Attribute:</label>
+    <select id="attribute">
+        <option value="age">Age</option>
+        <option value="total_pole_positions">Total Pole Positions</option>
+        <option value="total_race_wins">Total Race Wins</option>
+        <option value="total_points_scored">Total Points Scored</option>
+        <option value="total_world_titles">Total World Titles</option>
+        <option value="total_fastest_laps">Total Fastest Laps</option>
+    </select><br>
+
+    <label>Condition:</label>
+    <select id="condition">
+        <option value="greater">Greater Than</option>
+        <option value="less">Less Than</option>
+        <option value="equal">Equal To</option>
+    </select><br>
+
+    <label>Value:</label>
+    <input type="number" id="value" required><br>
+
+    <button type="submit">Query</button>
+</form>
+
+<div id="results"></div>
+
+<!-- ✅ Update Driver Form (Hidden Until Clicked) -->
+<div id="update-driver-form" style="display:none;">
+    <h2>Update Driver</h2>
+    <input type="text" id="update-name" readonly>
+    <input type="number" id="update-age" placeholder="Age">
+    <input type="number" id="update-race-wins" placeholder="Race Wins">
+    <button id="update-driver-button">Update</button>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch("/drivers/query_drivers?attribute=age&condition=greater&value=0")
+            .then(response => response.json())
+            .then(data => {
+                let resultsDiv = document.getElementById("results");
+                resultsDiv.innerHTML = "<h2>Drivers:</h2>";
+
+                data.forEach(driver => {
+                    resultsDiv.innerHTML += `<p><a href="/drivers/details?name=${encodeURIComponent(driver.name)}">${driver.name}</a></p>`;
+                });
+            });
+    });
+</script>
+
+<!-- <script>
+    function displayDrivers(drivers) {
+        const resultsDiv = document.getElementById("results");
+        resultsDiv.innerHTML = "<h2>Drivers Found:</h2>";
+
+        if (drivers.length === 0) {
+            resultsDiv.innerHTML += "<p>No drivers found.</p>";
+            return;
+        }
+
+        drivers.forEach(driver => {
+            resultsDiv.innerHTML += `
+                <p>
+                    <a href="/drivers/details?name=${encodeURIComponent(driver.name)}">
+                        ${driver.name}
+                    </a> - Age: ${driver.age}
+                </p>
+            `;
+        });
+    }
+</script> -->
+
+<!-- <script>
+    document.getElementById("query-driver-form").addEventListener("submit", async function(event) {
+        event.preventDefault();
+    
+        const attribute = document.getElementById("attribute").value;
+        const condition = document.getElementById("condition").value;
+        const value = document.getElementById("value").value;
+    
+        try {
+            const response = await fetch(`/drivers/query_drivers?attribute=${attribute}&condition=${condition}&value=${value}`);
+            const data = await response.json();
+    
+            const resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = "<h2>Query Results:</h2>";
+    
+            if (data.length === 0) {
+                resultsDiv.innerHTML += "<p>No drivers found.</p>";
+                return;
+            } else {
+                data.forEach(driver => {
+                    resultsDiv.innerHTML += `
+                        <p>
+                            <strong>Name:</strong> 
+                            <a href="/drivers/details?name=${encodeURIComponent(driver.name)}">${driver.name}</a> 
+                            - ${driver[attribute]}
+                        </p>`;
+                });
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Failed to query drivers. Check console for details.");
+        }
+    });
+    </script> -->
+
+<script src="/static/scripts.js"></script>
+{% endblock %}
+

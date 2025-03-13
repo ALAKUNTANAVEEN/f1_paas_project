@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Add Team{% endblock %}
+
+{% block content %}
+<h1>Add a New F1 Team</h1>
+<form id="add-team-form">
+    <label>Name:</label><input type="text" id="name" required><br>
+    <label>Year Founded:</label><input type="number" id="year_founded" required><br>
+    <label>Total Pole Positions:</label><input type="number" id="pole_positions"><br>
+    <label>Total Race Wins:</label><input type="number" id="race_wins"><br>
+    <label>Total Constructor Titles:</label><input type="number" id="constructor_titles"><br>
+    <label>Previous Season Position:</label><input type="number" id="previous_position"><br>
+    <button type="submit">Add Team</button>
+</form>
+<script src="/static/scripts.js"></script>
+{% endblock %}

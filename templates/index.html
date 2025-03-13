@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <h1>Welcome to F1 PaaS</h1>
+    <p>The ultimate platform for managing F1 drivers, teams, and comparisons.</p>
+    <a href="/query_drivers" class="btn">View Drivers</a>
+    <a href="/query_teams" class="btn">View Teams</a>
+</div>
+
+<div class="features-section">
+    <h2>Features</h2>
+    <div class="feature-grid">
+        <div class="feature">
+            <h3>🏎 Manage Drivers</h3>
+            <p>Add, update, and track F1 drivers' statistics.</p>
+        </div>
+        <div class="feature">
+            <h3>🏁 Manage Teams</h3>
+            <p>Keep track of F1 teams, their history, and performance.</p>
+        </div>
+        <div class="feature">
+            <h3>⚖ Compare Stats</h3>
+            <p>Compare drivers and teams side by side with highlighted performance.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

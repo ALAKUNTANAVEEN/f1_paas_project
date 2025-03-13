@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Team Details{% endblock %}
+
+{% block content %}
+<h1>Team Details</h1>
+
+<!-- ✅ Display Team Details -->
+<div id="team-info">
+    <p><strong>Name:</strong> <span id="team-name">{{ team.name }}</span></p>
+    <p><strong>Year Founded:</strong> <span id="team-year-founded">{{ team.year_founded }}</span></p>
+    <p><strong>Total Race Wins:</strong> <span id="team-race-wins">{{ team.total_race_wins }}</span></p>
+    <p><strong>Total Constructor Titles:</strong> <span id="team-constructor-titles">{{ team.total_constructor_titles }}</span></p>
+</div>
+
+{% if request.session.get("user_logged_in") %}
+<form action="/teams/delete_team/{{ team.name }}" method="post">
+    <button type="submit" class="btn btn-danger">🗑 Delete</button>
+</form>
+{% endif %}
+{% endblock %}

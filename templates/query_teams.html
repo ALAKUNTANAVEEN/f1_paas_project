@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Query Teams{% endblock %}
+
+{% block content %}
+<h1>Query Teams</h1>
+
+<form id="query-team-form">
+    <label for="attribute">Select Attribute:</label>
+    <select id="attribute">
+        <option value="year_founded">Year Founded</option>
+        <option value="total_pole_positions">Total Pole Positions</option>
+        <option value="total_race_wins">Total Race Wins</option>
+        <option value="total_constructor_titles">Total Constructor Titles</option>
+    </select>
+
+    <label for="condition">Condition:</label>
+    <select id="condition">
+        <option value="greater">Greater than</option>
+        <option value="less">Less than</option>
+        <option value="equal">Equal to</option>
+    </select>
+
+    <input type="number" id="value" required>
+    <button type="submit">Search</button>
+</form>
+
+<div id="results"></div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch("/teams/query_teams?attribute=year_founded&condition=greater&value=0")
+            .then(response => response.json())
+            .then(data => {
+                let resultsDiv = document.getElementById("results");
+                resultsDiv.innerHTML = "<h2>Teams:</h2>";
+
+                if (data.length === 0) {
+                    resultsDiv.innerHTML += "<p>No teams found.</p>";
+                    return;
+                }
+
+                data.forEach(team => {
+                    resultsDiv.innerHTML += `
+                        <p>
+                            <a href="/teams/details/${encodeURIComponent(team.name)}">
+                                ${team.name}
+                            </a> - Founded: ${team.year_founded}
+                        </p>
+                    `;
+                });
+            })
+            .catch(error => {
+                console.error("Error fetching teams:", error);
+                alert("Failed to load teams.");
+            });
+    });
+
+    document.getElementById("query-team-form").addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const attribute = document.getElementById("attribute").value;
+        const condition = document.getElementById("condition").value;
+        const value = document.getElementById("value").value;
+
+        try {
+            const response = await fetch(`/teams/query_teams?attribute=${attribute}&condition=${condition}&value=${value}`);
+            const data = await response.json();
+
+            const resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = "<h2>Query Results:</h2>";
+
+            if (data.length === 0) {
+                resultsDiv.innerHTML += "<p>No teams found.</p>";
+            } else {
+                data.forEach(team => {
+                    resultsDiv.innerHTML += `
+                        <p>
+                            <a href="/teams/details/${encodeURIComponent(team.name)}">
+                                ${team.name}
+                            </a> - ${team[attribute]}
+                        </p>`;
+                });
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Failed to query teams. Check console for details.");
+        }
+    });
+</script>
+
+<script src="/static/scripts.js"></script>
+{% endblock %}

@@ -1,0 +1,543 @@
+/* General Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* Centering Content */
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* 🌟 Elegant Navigation Bar */
+.navbar {
+    background: linear-gradient(to right, #007bff, #0056b3);
+    padding: 12px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.navbar .navbar-brand {
+    color: white;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.navbar .nav-link {
+    color: white !important;
+    font-weight: bold;
+    margin-right: 15px;
+    transition: 0.3s ease-in-out;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+.navbar .nav-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    text-decoration: none;
+}
+
+/* Headings */
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Forms */
+form {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    display: block;
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+form input, form select, form button {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+form button {
+    background: linear-gradient(to right, #007bff, #0056b3);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s ease-in-out;
+}
+
+form button:hover {
+    background: linear-gradient(to right, #0056b3, #004494);
+}
+
+/* Tables */
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background: linear-gradient(to right, #007bff, #0056b3);
+    color: white;
+}
+
+/* Highlighting Compare Stats */
+td.✅ {
+    background-color: lightgreen;
+    font-weight: bold;
+}
+
+td.❌ {
+    background-color: lightcoral;
+    font-weight: bold;
+}
+
+td.🔵 {
+    background-color: lightblue;
+}
+
+/* Responsive Navbar */
+@media screen and (max-width: 768px) {
+    .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-item {
+        margin-bottom: 10px;
+    }
+
+    .container {
+        width: 95%;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    form {
+        width: 90%;
+    }
+
+    form input, form select, form button {
+        font-size: 14px;
+    }
+}
+
+/* Compare Drivers - Form */
+#compare-form {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#compare-form label {
+    display: block;
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+#compare-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#compare-form button {
+    background: linear-gradient(to right, #007bff, #0056b3);
+    color: white;
+    font-weight: bold;
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s ease-in-out;
+}
+
+#compare-form button:hover {
+    background: linear-gradient(to right, #0056b3, #004494);
+}
+
+/* Comparison Table */
+#comparison-results {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#comparison-results table {
+    width: 80%;
+    margin: auto;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#comparison-results th, #comparison-results td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+#comparison-results th {
+    background: linear-gradient(to right, #007bff, #0056b3);
+    color: white;
+}
+
+td.✅ {
+    background-color: lightgreen;
+    font-weight: bold;
+}
+
+td.❌ {
+    background-color: lightcoral;
+    font-weight: bold;
+}
+
+td.🔵 {
+    background-color: lightblue;
+}
+
+/* Compare Teams - Form */
+#compare-form {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#compare-form label {
+    display: block;
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+#compare-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#compare-form button {
+    background: linear-gradient(to right, #007bff, #0056b3);
+    color: white;
+    font-weight: bold;
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s ease-in-out;
+}
+
+#compare-form button:hover {
+    background: linear-gradient(to right, #0056b3, #004494);
+}
+
+/* Comparison Table */
+#comparison-results {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#comparison-results table {
+    width: 80%;
+    margin: auto;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#comparison-results th, #comparison-results td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+#comparison-results th {
+    background: linear-gradient(to right, #007bff, #0056b3);
+    color: white;
+}
+
+/* Highlighting Compare Stats */
+td.✅ {
+    background-color: lightgreen;
+    font-weight: bold;
+}
+
+td.❌ {
+    background-color: lightcoral;
+    font-weight: bold;
+}
+
+td.🔵 {
+    background-color: lightblue;
+}
+
+/* Home Page - Hero Section */
+.hero-section {
+    text-align: center;
+    background:  #7b7b7b;
+    color: white;
+    padding: 50px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    margin-top: 30px
+}
+
+.hero-section h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.hero-section p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.hero-section .btn {
+    display: inline-block;
+    padding: 12px 20px;
+    margin: 10px;
+    background: white;
+    color: #007bff;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.hero-section .btn:hover {
+    background: #f4f4f4;
+}
+
+/* Features Section */
+.features-section {
+    text-align: center;
+    padding: 20px;
+    background: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.features-section h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.feature-grid {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.feature {
+    flex: 1;
+    min-width: 250px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feature h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #007bff;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .feature-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* 🔹 Center login form & style inputs */
+#login-form {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#login-form h3 {
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #333;
+}
+
+#login-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#login-button {
+    width: 100%;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+#login-button:hover {
+    background: #0056b3;
+}
+
+/* 🔹 Style Logout Button in Navbar */
+#logout-button {
+    padding: 8px 12px;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+#logout-button:hover {
+    background: #bb2d3b;
+}
+
+/* ✅ Ensure buttons are visible */
+.edit-button, .save-button {
+    display: inline-block; /* Ensure buttons appear */
+    margin: 5px;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+/* ✅ Edit button styles */
+.edit-button {
+    background-color: #007bff; /* Blue */
+    color: white;
+}
+
+/* ✅ Save button styles */
+.save-button {
+    background-color: #28a745; /* Green */
+    color: white;
+    display: none; /* Hide by default */
+}
+
+/* ✅ Style for team cards */
+.team-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+/* ✅ Make inputs look clean */
+.team-card input {
+    border: 1px solid #ccc;
+    padding: 5px;
+    font-size: 14px;
+    width: 100px;
+}
+
+/* ✅ Styling for Compare Tables */
+.compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.compare-table th, .compare-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.compare-table th {
+    background-color: #343a40;
+    color: white;
+    font-size: 18px;
+}
+
+/* ✅ Highlight better stats */
+.highlight-green {
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+}
+
+/* ✅ Highlight better age (lower is better) */
+.highlight-age {
+    background-color: #17a2b8;
+    color: white;
+    font-weight: bold;
+}
+
+/* ✅ Team Comparison: Finishing position & year (lower is better) */
+.highlight-lower {
+    background-color: #ffc107;
+    color: black;
+    font-weight: bold;
+}
+
+/* ✅ Responsive Table */
+@media (max-width: 768px) {
+    .compare-table {
+        font-size: 14px;
+    }
+}

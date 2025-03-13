@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Compare Drivers{% endblock %}
+
+{% block content %}
+<h1>Compare Two Drivers</h1>
+<form id="compare-form">
+    <label for="driver1">First Driver:</label>
+    <input type="text" id="driver1" placeholder="Enter Driver 1 Name" required>
+    
+    <label for="driver2">Second Driver:</label>
+    <input type="text" id="driver2" placeholder="Enter Driver 2 Name" required>
+
+    <button type="submit">Compare</button>
+</form>
+
+<div id="comparison-results"></div>
+
+<script>
+    document.getElementById("compare-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        const driver1 = document.getElementById("driver1").value.trim();
+        const driver2 = document.getElementById("driver2").value.trim();
+        
+        if (!driver1 || !driver2) {
+            alert("Please enter both driver names!");
+            return;
+        }
+
+        fetch(`/drivers/compare_drivers?driver1=${encodeURIComponent(driver1)}&driver2=${encodeURIComponent(driver2)}`)
+        .then(response => response.json())
+        .then(data => {
+            let resultHTML = `<h2>Comparison: ${driver1} vs ${driver2}</h2>`;
+            resultHTML += `<table border="1">
+                <tr><th>Stat</th><th>${driver1}</th><th>${driver2}</th></tr>`;
+
+                for (const [stat, values] of Object.entries(data.comparison)) {
+                let highlight1 = "", highlight2 = "";
+
+                if (stat === "age") {
+                    highlight1 = values[driver1] < values[driver2] ? "highlight-age" : "";
+                    highlight2 = values[driver2] < values[driver1] ? "highlight-age" : "";
+                } else {
+                    highlight1 = values[driver1] > values[driver2] ? "highlight-green" : "";
+                    highlight2 = values[driver2] > values[driver1] ? "highlight-green" : "";
+                }
+
+                resultHTML += `<tr>
+                    <td>${stat.replaceAll("_", " ")}</td>
+                    <td class="${highlight1}">${values[driver1]}</td>
+                    <td class="${highlight2}">${values[driver2]}</td>
+                </tr>`;
+            }
+
+            resultHTML += "</table>";
+            document.getElementById("comparison-results").innerHTML = resultHTML;
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("Failed to compare drivers. Make sure both drivers exist.");
+        });
+    });
+</script>
+{% endblock %}
+
+ 
