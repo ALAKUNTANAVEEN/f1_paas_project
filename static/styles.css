@@ -1,4 +1,3 @@
-/* General Styling */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
@@ -6,7 +5,6 @@ body {
     padding: 0;
 }
 
-/* Centering Content */
 .container {
     max-width: 900px;
     margin: auto;
@@ -16,7 +14,6 @@ body {
     border-radius: 8px;
 }
 
-/* 🌟 Elegant Navigation Bar */
 .navbar {
     background: linear-gradient(to right, #007bff, #0056b3);
     padding: 12px;
@@ -44,14 +41,12 @@ body {
     text-decoration: none;
 }
 
-/* Headings */
 h1 {
     text-align: center;
     color: #333;
     margin-bottom: 20px;
 }
 
-/* Forms */
 form {
     max-width: 500px;
     margin: auto;
@@ -89,7 +84,6 @@ form button:hover {
     background: linear-gradient(to right, #0056b3, #004494);
 }
 
-/* Tables */
 table {
     width: 100%;
     margin-top: 20px;
@@ -110,7 +104,6 @@ th {
     color: white;
 }
 
-/* Highlighting Compare Stats */
 td.✅ {
     background-color: lightgreen;
     font-weight: bold;
@@ -125,7 +118,6 @@ td.🔵 {
     background-color: lightblue;
 }
 
-/* Responsive Navbar */
 @media screen and (max-width: 768px) {
     .navbar-nav {
         display: flex;
@@ -154,7 +146,6 @@ td.🔵 {
     }
 }
 
-/* Compare Drivers - Form */
 #compare-form {
     max-width: 600px;
     margin: auto;
@@ -194,7 +185,6 @@ td.🔵 {
     background: linear-gradient(to right, #0056b3, #004494);
 }
 
-/* Comparison Table */
 #comparison-results {
     margin-top: 20px;
     text-align: center;
@@ -233,7 +223,6 @@ td.🔵 {
     background-color: lightblue;
 }
 
-/* Compare Teams - Form */
 #compare-form {
     max-width: 600px;
     margin: auto;
@@ -273,7 +262,6 @@ td.🔵 {
     background: linear-gradient(to right, #0056b3, #004494);
 }
 
-/* Comparison Table */
 #comparison-results {
     margin-top: 20px;
     text-align: center;
@@ -298,22 +286,6 @@ td.🔵 {
     color: white;
 }
 
-/* Highlighting Compare Stats */
-td.✅ {
-    background-color: lightgreen;
-    font-weight: bold;
-}
-
-td.❌ {
-    background-color: lightcoral;
-    font-weight: bold;
-}
-
-td.🔵 {
-    background-color: lightblue;
-}
-
-/* Home Page - Hero Section */
 .hero-section {
     text-align: center;
     background:  #7b7b7b;
@@ -350,7 +322,6 @@ td.🔵 {
     background: #f4f4f4;
 }
 
-/* Features Section */
 .features-section {
     text-align: center;
     padding: 20px;
@@ -388,7 +359,6 @@ td.🔵 {
     color: #007bff;
 }
 
-/* Responsive Design */
 @media screen and (max-width: 768px) {
     .feature-grid {
         flex-direction: column;
@@ -396,7 +366,6 @@ td.🔵 {
     }
 }
 
-/* 🔹 Center login form & style inputs */
 #login-form {
     max-width: 400px;
     margin: 50px auto;
@@ -438,7 +407,6 @@ td.🔵 {
     background: #0056b3;
 }
 
-/* 🔹 Style Logout Button in Navbar */
 #logout-button {
     padding: 8px 12px;
     background: #dc3545;
@@ -454,9 +422,8 @@ td.🔵 {
     background: #bb2d3b;
 }
 
-/* ✅ Ensure buttons are visible */
 .edit-button, .save-button {
-    display: inline-block; /* Ensure buttons appear */
+    display: inline-block; 
     margin: 5px;
     padding: 8px 12px;
     font-size: 14px;
@@ -465,20 +432,17 @@ td.🔵 {
     border-radius: 5px;
 }
 
-/* ✅ Edit button styles */
 .edit-button {
-    background-color: #007bff; /* Blue */
+    background-color: #007bff; 
     color: white;
 }
 
-/* ✅ Save button styles */
 .save-button {
-    background-color: #28a745; /* Green */
+    background-color: #28a745; 
     color: white;
-    display: none; /* Hide by default */
+    display: none; 
 }
 
-/* ✅ Style for team cards */
 .team-card {
     border: 1px solid #ddd;
     padding: 15px;
@@ -487,7 +451,6 @@ td.🔵 {
     background-color: #f9f9f9;
 }
 
-/* ✅ Make inputs look clean */
 .team-card input {
     border: 1px solid #ccc;
     padding: 5px;
@@ -495,7 +458,6 @@ td.🔵 {
     width: 100px;
 }
 
-/* ✅ Styling for Compare Tables */
 .compare-table {
     width: 100%;
     border-collapse: collapse;
@@ -514,28 +476,24 @@ td.🔵 {
     font-size: 18px;
 }
 
-/* ✅ Highlight better stats */
 .highlight-green {
     background-color: #28a745;
     color: white;
     font-weight: bold;
 }
 
-/* ✅ Highlight better age (lower is better) */
 .highlight-age {
     background-color: #17a2b8;
     color: white;
     font-weight: bold;
 }
 
-/* ✅ Team Comparison: Finishing position & year (lower is better) */
 .highlight-lower {
     background-color: #ffc107;
     color: black;
     font-weight: bold;
 }
 
-/* ✅ Responsive Table */
 @media (max-width: 768px) {
     .compare-table {
         font-size: 14px;
