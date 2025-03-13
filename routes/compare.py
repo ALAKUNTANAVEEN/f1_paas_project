@@ -5,7 +5,6 @@ router = APIRouter()
 db = firestore.Client()
 teams_ref = db.collection("teams")
 
-# ✅ Compare Two Teams
 @router.get("/compare/teams/{team1}/{team2}")
 def compare_teams(team1: str, team2: str):
     team1_doc = teams_ref.document(team1).get()
@@ -17,32 +16,33 @@ def compare_teams(team1: str, team2: str):
     team1_data = team1_doc.to_dict()
     team2_data = team2_doc.to_dict()
 
-    # Fields to compare
     compare_fields = [
         "total_pole_positions", "total_race_wins", 
         "total_constructor_titles"
     ]
 
-    # Fields where lower is better
     reverse_fields = ["previous_season_position", "year_founded"]
 
     comparison = {}
     
     for field in compare_fields:
         if team1_data[field] > team2_data[field]:
-            comparison[field] = {team1: "✅", team2: "❌"}
+            comparison[field] = {team1: "Better", team2: "Worse"}
         elif team1_data[field] < team2_data[field]:
-            comparison[field] = {team1: "❌", team2: "✅"}
+            comparison[field] = {team1: "Worse", team2: "Better"}
         else:
-            comparison[field] = {team1: "🔵", team2: "🔵"}
+            comparison[field] = {team1: "Equal", team2: "Equal"}
 
     for field in reverse_fields:
-        if team1_data[field] < team2_data[field]:  # Lower is better
-            comparison[field] = {team1: "✅", team2: "❌"}
+        if team1_data[field] < team2_data[field]:  
+            comparison[field] = {team1: "Better", team2: "Worse"}
         elif team1_data[field] > team2_data[field]:
-            comparison[field] = {team1: "❌", team2: "✅"}
+            comparison[field] = {team1: "Worse", team2: "Better"}
         else:
-            comparison[field] = {team1: "🔵", team2: "🔵"}
+            comparison[field] = {team1: "Equal", team2: "Equal"}
 
-    return {"team1": team1_data, "team2": team2_data, "comparison": comparison}
- 
+    return {
+        "team1": team1_data,
+        "team2": team2_data,
+        "comparison": comparison
+    }
