@@ -29,7 +29,6 @@
 
 <div id="results"></div>
 
-<!-- ✅ Update Driver Form (Hidden Until Clicked) -->
 <div id="update-driver-form" style="display:none;">
     <h2>Update Driver</h2>
     <input type="text" id="update-name" readonly>
@@ -52,63 +51,6 @@
             });
     });
 </script>
-
-<!-- <script>
-    function displayDrivers(drivers) {
-        const resultsDiv = document.getElementById("results");
-        resultsDiv.innerHTML = "<h2>Drivers Found:</h2>";
-
-        if (drivers.length === 0) {
-            resultsDiv.innerHTML += "<p>No drivers found.</p>";
-            return;
-        }
-
-        drivers.forEach(driver => {
-            resultsDiv.innerHTML += `
-                <p>
-                    <a href="/drivers/details?name=${encodeURIComponent(driver.name)}">
-                        ${driver.name}
-                    </a> - Age: ${driver.age}
-                </p>
-            `;
-        });
-    }
-</script> -->
-
-<!-- <script>
-    document.getElementById("query-driver-form").addEventListener("submit", async function(event) {
-        event.preventDefault();
-    
-        const attribute = document.getElementById("attribute").value;
-        const condition = document.getElementById("condition").value;
-        const value = document.getElementById("value").value;
-    
-        try {
-            const response = await fetch(`/drivers/query_drivers?attribute=${attribute}&condition=${condition}&value=${value}`);
-            const data = await response.json();
-    
-            const resultsDiv = document.getElementById("results");
-            resultsDiv.innerHTML = "<h2>Query Results:</h2>";
-    
-            if (data.length === 0) {
-                resultsDiv.innerHTML += "<p>No drivers found.</p>";
-                return;
-            } else {
-                data.forEach(driver => {
-                    resultsDiv.innerHTML += `
-                        <p>
-                            <strong>Name:</strong> 
-                            <a href="/drivers/details?name=${encodeURIComponent(driver.name)}">${driver.name}</a> 
-                            - ${driver[attribute]}
-                        </p>`;
-                });
-            }
-        } catch (error) {
-            console.error("Error:", error);
-            alert("Failed to query drivers. Check console for details.");
-        }
-    });
-    </script> -->
 
 <script src="/static/scripts.js"></script>
 {% endblock %}
