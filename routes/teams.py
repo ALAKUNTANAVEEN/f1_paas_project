@@ -11,7 +11,7 @@ templates = Jinja2Templates(directory="templates")
 
 @router.post("/add_team")
 def add_team(team: Team):
-    """ ✅ Add a new team to Firestore """
+    """ Add a new team to Firestore """
     if teams_ref.document(team.name).get().exists:
         raise HTTPException(status_code=400, detail="Team already exists")
     
@@ -20,7 +20,7 @@ def add_team(team: Team):
 
 @router.get("/get_team/{name}")
 def get_team(name: str):
-    """ ✅ Fetch a team's details """
+    """ Fetch a team's details """
     team_doc = teams_ref.document(name).get()
     if not team_doc.exists:
         raise HTTPException(status_code=404, detail="Team not found")
@@ -34,21 +34,20 @@ def update_team(name: str, updated_data: dict):
         raise HTTPException(status_code=404, detail="Team not found")
 
     try:
-        # ✅ Firestore update method
         teams_ref.document(name).update(updated_data)
-        return {"message": f"✅ Team '{name}' updated successfully!"}
+        return {"message": f" Team '{name}' updated successfully!"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Update failed: {str(e)}")
 
 @router.delete("/delete_team/{name}")
 def delete_team(name: str, token: str = Depends(verify_user)):
-    """ ✅ Only logged-in users can delete teams """
+    """ Only logged-in users can delete teams """
     team_doc = teams_ref.document(name).get()
     if not team_doc.exists:
         raise HTTPException(status_code=404, detail="Team not found")
     
     teams_ref.document(name).delete()
-    return {"message": "✅ Team deleted successfully"}
+    return {"message": "Team deleted successfully"}
 
 @router.get("/query_teams", tags=["Teams"], summary="Query Teams Based on Attributes")
 def query_teams(
@@ -103,7 +102,6 @@ def compare_teams(
     team1_data = doc1.to_dict()
     team2_data = doc2.to_dict()
 
-    # Compare stats and highlight better ones
     comparison = {}
     for key in ["total_pole_positions", "total_race_wins", "total_constructor_titles"]:
         if team1_data[key] > team2_data[key]:
@@ -121,7 +119,7 @@ def compare_teams(
 
 @router.get("/details/{name}")
 def team_details(request: Request, name: str):
-    """ ✅ Fetch and display team details """
+    """ Fetch and display team details """
     team_doc = teams_ref.document(name).get()
     
     if not team_doc.exists:
