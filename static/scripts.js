@@ -1,18 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("✅ Scripts loaded!");
+    console.log("Scripts loaded!");
 
-    // ✅ Check if User is Logged In
     function isUserLoggedIn() {
         return localStorage.getItem("userLoggedIn") === "true";
     }
 
-    // ✅ Restrict Add Driver
     const addDriverForm = document.getElementById("add-driver-form");
     if (addDriverForm) {
         addDriverForm.addEventListener("submit", function (event) {
             if (!isUserLoggedIn()) {
                 event.preventDefault();
-                alert("❌ You must be logged in to add a driver!");
+                alert("You must be logged in to add a driver!");
                 return;
             }
 
@@ -38,13 +36,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // ✅ Restrict Add Team
     const addTeamForm = document.getElementById("add-team-form");
     if (addTeamForm) {
         addTeamForm.addEventListener("submit", function (event) {
             if (!isUserLoggedIn()) {
                 event.preventDefault();
-                alert("❌ You must be logged in to add a team!");
+                alert("You must be logged in to add a team!");
                 return;
             }
 
@@ -68,17 +65,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // ✅ Restrict Editing and Deleting
     function restrictEditDeleteButtons() {
         if (!isUserLoggedIn()) {
             document.querySelectorAll(".edit-button, .delete-button").forEach(button => {
-                button.style.display = "none"; // Hide buttons if not logged in
+                button.style.display = "none"; 
             });
         }
     }
     restrictEditDeleteButtons();
 
-    // ✅ Query Drivers
     const queryDriverForm = document.getElementById("query-driver-form");
     if (queryDriverForm) {
         queryDriverForm.addEventListener("submit", async function (event) {
@@ -111,7 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <button class="save-button" data-name="${driver.name}" style="display:none;">💾 Save</button>
                             </div>
                         `;
-                        // resultsDiv.innerHTML += driverHTML;
                         resultsDiv.innerHTML += `
                         <p><a href="/drivers/${driver.name}">${driver.name}</a> - ${driver[attribute]}</p>
                         `;
@@ -125,12 +119,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // ✅ Attach Event Listeners for Editing Drivers
     function attachDriverEditListeners() {
         document.querySelectorAll(".edit-button").forEach(button => {
             button.addEventListener("click", function () {
                 if (!isUserLoggedIn()) {
-                    alert("❌ You must be logged in to edit!");
+                    alert("You must be logged in to edit!");
                     return;
                 }
 
@@ -138,12 +131,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById(`age-${name}`).removeAttribute("disabled");
                 document.getElementById(`race_wins-${name}`).removeAttribute("disabled");
 
-                button.style.display = "none"; // Hide Edit button
+                button.style.display = "none"; 
                 document.querySelector(`.save-button[data-name="${name}"]`).style.display = "inline-block";
             });
         });
 
-        // ✅ Save Updated Driver Details
         document.querySelectorAll(".save-button").forEach(button => {
             button.addEventListener("click", async function () {
                 const name = button.getAttribute("data-name");
@@ -160,15 +152,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 })
                 .then(response => response.json())
                 .then(data => {
-                    alert("✅ Driver updated successfully!");
+                    alert("Driver updated successfully!");
                     window.location.reload();
                 })
-                .catch(error => console.error("❌ Update Error:", error));
+                .catch(error => console.error("Update Error:", error));
             });
         });
     }
 
-    // ✅ Query Teams
     const queryTeamForm = document.getElementById("query-form");
     if (queryTeamForm) {
         queryTeamForm.addEventListener("submit", async function (event) {
@@ -192,22 +183,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     resultsDiv.innerHTML += "<p>No teams found.</p>";
                 } else {
                     data.forEach(team => {
-                        // resultsDiv.innerHTML += `
-                        //     <div class="team-card" id="team-${team.name}">
-                        //         <p><strong>Name:</strong> ${team.name}</p>  
-                        //         <p><strong>Year Founded:</strong> 
-                        //             <input type="number" id="year_founded-${team.name}" value="${parseInt(team.year_founded) || ''}" disabled>
-                        //         </p>
-                        //         <p><strong>Total Race Wins:</strong> 
-                        //             <input type="number" id="race_wins-${team.name}" value="${parseInt(team.total_race_wins) || ''}" disabled>
-                        //         </p>
-                        //         <p><strong>Total Constructor Titles:</strong> 
-                        //             <input type="number" id="constructor_titles-${team.name}" value="${parseInt(team.total_constructor_titles) || ''}" disabled>
-                        //         </p>
-                        //         <button class="edit-button" data-name="${team.name}">✏ Edit</button>
-                        //         <button class="save-button" data-name="${team.name}" style="display:none;">💾 Save</button>
-                        //     </div>
-                        // `;
                         resultsDiv.innerHTML += `
                         <p><a href="/teams/${team.name}">${team.name}</a> - ${team[attribute]}</p>
                     `;
@@ -220,34 +195,32 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-    // ✅ Attach Edit Button Listeners AFTER Query
     function attachEditListeners() {
         document.querySelectorAll(".edit-button").forEach(button => {
             button.addEventListener("click", function () {
-                console.log("🖊 Edit button clicked!");
+                console.log("Edit button clicked!");
                 if (!isUserLoggedIn()) {
-                    alert("❌ You must be logged in to edit teams!");
+                    alert("You must be logged in to edit teams!");
                     return;
                 }
 
                 const teamName = this.dataset.name;
                 console.log("Editing team:", teamName);
 
-                // Enable inputs
                 document.getElementById(`year_founded-${teamName}`).disabled = false;
                 document.getElementById(`race_wins-${teamName}`).disabled = false;
                 document.getElementById(`constructor_titles-${teamName}`).disabled = false;
 
-                this.style.display = "none"; // Hide Edit button
-                document.querySelector(`.save-button[data-name="${teamName}"]`).style.display = "inline-block"; // Show Save button
+                this.style.display = "none"; 
+                document.querySelector(`.save-button[data-name="${teamName}"]`).style.display = "inline-block"; 
             });
         });
 
         document.querySelectorAll(".save-button").forEach(button => {
             button.addEventListener("click", async function () {
-                console.log("💾 Save button clicked!");
+                console.log("Save button clicked!");
                 if (!isUserLoggedIn()) {
-                    alert("❌ You must be logged in to save changes!");
+                    alert("You must be logged in to save changes!");
                     return;
                 }
 
@@ -273,23 +246,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     const data = await response.json();
                     console.log("Update Response:", data);
-                    alert("✅ Team updated successfully!");
+                    alert("Team updated successfully!");
 
-                    // Reset UI
                     document.getElementById(`year_founded-${teamName}`).disabled = true;
                     document.getElementById(`race_wins-${teamName}`).disabled = true;
                     document.getElementById(`constructor_titles-${teamName}`).disabled = true;
 
-                    this.style.display = "none"; // Hide Save button
+                    this.style.display = "none"; 
                     document.querySelector(`.edit-button[data-name="${teamName}"]`).style.display = "inline-block"; // Show Edit button
                 } catch (error) {
                     console.error("Error:", error);
-                    alert("❌ Failed to update team. Check console for details.");
+                    alert("Failed to update team. Check console for details.");
                 }
             });
         });
 
-    // ✅ Compare Drivers
     const compareDriversForm = document.getElementById("compare-drivers-form");
     if (compareDriversForm) {
         compareDriversForm.addEventListener("submit", async function (event) {
@@ -316,11 +287,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // ✅ Handle Updating Drivers
     document.addEventListener("click", function (event) {
         if (event.target.classList.contains("update-driver-button")) {
             if (!isUserLoggedIn()) {
-                alert("❌ You must be logged in to update a driver!");
+                alert("You must be logged in to update a driver!");
                 return;
             }
 
@@ -349,11 +319,10 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error("Error:", error));
     });
 
-    // ✅ Handle Updating Teams
     document.addEventListener("click", function (event) {
         if (event.target.classList.contains("update-team-button")) {
             if (!isUserLoggedIn()) {
-                alert("❌ You must be logged in to update a team!");
+                alert("You must be logged in to update a team!");
                 return;
             }
 
@@ -381,7 +350,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     }
 
-    // ✅ Handle Edit Button Click
     document.addEventListener("click", function (event) {
         if (event.target.classList.contains("edit-button")) {
             const teamName = event.target.getAttribute("data-name");
@@ -391,17 +359,15 @@ document.addEventListener("DOMContentLoaded", function () {
             const constructorTitlesInput = document.getElementById(`constructor_titles-${teamName}`);
 
             if (!isUserLoggedIn()) {
-                alert("❌ You must be logged in to edit a team!");
+                alert("You must be logged in to edit a team!");
                 return;
             }
 
-            // ✅ Enable input fields
             nameInput.removeAttribute("disabled");
             yearFoundedInput.removeAttribute("disabled");
             raceWinsInput.removeAttribute("disabled");
             constructorTitlesInput.removeAttribute("disabled");
 
-            // ✅ Show "Save" button and hide "Edit" button
             event.target.style.display = "none";
             document.querySelector(`.save-button[data-name='${teamName}']`).style.display = "inline-block";
         }
@@ -410,7 +376,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("click", function (event) {
         if (event.target.classList.contains("save-button")) {
             const teamName = event.target.getAttribute("data-name");
-            console.log(`💾 Saving Team: ${teamName}`);
+            console.log(`Saving Team: ${teamName}`);
     
             const nameInput = document.getElementById(`team_name-${teamName}`);
             const yearFoundedInput = document.getElementById(`year_founded-${teamName}`);
@@ -418,18 +384,17 @@ document.addEventListener("DOMContentLoaded", function () {
             const constructorTitlesInput = document.getElementById(`constructor_titles-${teamName}`);
     
             if (!isUserLoggedIn()) {
-                alert("❌ You must be logged in to update a team!");
+                alert("You must be logged in to update a team!");
                 return;
             }
     
-            // ✅ Ensure data is sent in correct format
             const updatedTeamData = {};
             if (nameInput.value) updatedTeamData.name = nameInput.value;
             if (yearFoundedInput.value) updatedTeamData.year_founded = parseInt(yearFoundedInput.value);
             if (raceWinsInput.value) updatedTeamData.total_race_wins = parseInt(raceWinsInput.value);
             if (constructorTitlesInput.value) updatedTeamData.total_constructor_titles = parseInt(constructorTitlesInput.value);
     
-            console.log("📡 Sending Update:", updatedTeamData);
+            console.log("Sending Update:", updatedTeamData);
     
             fetch(`/teams/update_team/${encodeURIComponent(teamName)}`, {
                 method: "PUT",
@@ -438,38 +403,33 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .then(response => response.json())
             .then(data => {
-                console.log("✅ Update Response:", data);
+                console.log("Update Response:", data);
                 alert(data.message);
                 window.location.reload();
             })
-            .catch(error => console.error("❌ Error updating team:", error));
+            .catch(error => console.error("Error updating team:", error));
     
-            // ✅ Disable input fields after saving
             nameInput.setAttribute("disabled", "true");
             yearFoundedInput.setAttribute("disabled", "true");
             raceWinsInput.setAttribute("disabled", "true");
             constructorTitlesInput.setAttribute("disabled", "true");
     
-            // ✅ Show Edit button again
             document.querySelector(`.edit-button[data-name='${teamName}']`).style.display = "inline-block";
             event.target.style.display = "none";
         }
     });    
     
-
-    // ✅ Attach Event Listeners for Editing Drivers
     document.addEventListener("click", function (event) {
         if (event.target.classList.contains("edit-button")) {
             const name = event.target.getAttribute("data-name");
             document.getElementById(`age-${name}`).removeAttribute("disabled");
             document.getElementById(`race_wins-${name}`).removeAttribute("disabled");
 
-            event.target.style.display = "none"; // Hide Edit button
+            event.target.style.display = "none"; 
             document.querySelector(`.save-button[data-name="${name}"]`).style.display = "inline-block";
         }
     });
 
-    // ✅ Save Updated Driver Details
     document.addEventListener("click", function (event) {
         if (event.target.classList.contains("save-button")) {
             const name = event.target.getAttribute("data-name");
@@ -486,26 +446,24 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .then(response => response.json())
             .then(data => {
-                alert("✅ Driver updated successfully!");
+                alert("Driver updated successfully!");
                 window.location.reload();
             })
-            .catch(error => console.error("❌ Update Error:", error));
+            .catch(error => console.error("Update Error:", error));
         }
     });
 
-    // ✅ Attach Event Listeners for Editing Teams
     document.addEventListener("click", function (event) {
         if (event.target.classList.contains("edit-button")) {
             const teamName = event.target.getAttribute("data-name");
             document.getElementById(`year_founded-${teamName}`).removeAttribute("disabled");
             document.getElementById(`race_wins-${teamName}`).removeAttribute("disabled");
 
-            event.target.style.display = "none"; // Hide Edit button
+            event.target.style.display = "none"; 
             document.querySelector(`.save-button[data-name="${teamName}"]`).style.display = "inline-block";
         }
     });
 
-    // ✅ Save Updated Team Details
     document.addEventListener("click", function (event) {
         if (event.target.classList.contains("save-button")) {
             const teamName = event.target.getAttribute("data-name");
@@ -522,20 +480,18 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .then(response => response.json())
             .then(data => {
-                alert("✅ Team updated successfully!");
+                alert("Team updated successfully!");
                 window.location.reload();
             })
-            .catch(error => console.error("❌ Update Error:", error));
+            .catch(error => console.error("Update Error:", error));
         }
     });
 
-    // ✅ Make Logout Button Visible if Logged In
     if (isUserLoggedIn()) {
         const logoutButton = document.getElementById("logout-button");
         if (logoutButton) logoutButton.style.display = "block";
     }
 
-    // ✅ Make Delete Buttons Visible if Logged In
     if (isUserLoggedIn()) {
         const deleteDriverBtn = document.getElementById("delete-driver-btn");
         const deleteTeamBtn = document.getElementById("delete-team-btn");
@@ -553,10 +509,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const response = await fetch(`/drivers/delete_driver/${driverName}`, { method: "DELETE" });
             if (!response.ok) throw new Error("Failed to delete driver");
 
-            alert("✅ Driver deleted successfully!");
+            alert("Driver deleted successfully!");
             window.location.href = "/";
         } catch (error) {
-            alert("❌ Error deleting driver: " + error.message);
+            alert("Error deleting driver: " + error.message);
         }
     });
 
@@ -569,11 +525,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const response = await fetch(`/teams/delete_team/${teamName}`, { method: "DELETE" });
             if (!response.ok) throw new Error("Failed to delete team");
 
-            alert("✅ Team deleted successfully!");
+            alert("Team deleted successfully!");
             window.location.href = "/";
         } catch (error) {
-            alert("❌ Error deleting team: " + error.message);
+            alert("Error deleting team: " + error.message);
         }
     });
-
 });
