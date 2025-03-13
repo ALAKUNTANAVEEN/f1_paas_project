@@ -1,4 +1,3 @@
-// ✅ Use Firebase v8 syntax (not import/export)
 const firebaseConfig = {
     apiKey: "AIzaSyAaAhr5cKdDHB0NTSzAhhvxoWZFduFvT-Q",
     authDomain: "formulaone-e1b47.firebaseapp.com",
@@ -9,15 +8,12 @@ const firebaseConfig = {
     measurementId: "G-S95174JZQY"
 };
 
-// ✅ Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
-// ✅ Ensure DOM is fully loaded before running
 document.addEventListener("DOMContentLoaded", function () {
     console.log("🔥 Firebase script loaded!");
 
-    // ✅ Check if login form exists before adding event listener
     const loginForm = document.getElementById("login-form");
     if (loginForm) {
         const loginButton = document.getElementById("submit-login");
@@ -28,44 +24,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 firebase.auth().signInWithEmailAndPassword(email, password)
                     .then(userCredential => {
-                        console.log("✅ User logged in:", userCredential.user);
+                        console.log("User logged in:", userCredential.user);
                         alert("🎉 Login successful!");
                         window.location.reload();
                     })
                     .catch(error => {
-                        console.error("❌ Login Error:", error.message);
+                        console.error("Login Error:", error.message);
                         alert(error.message);
                     });
             });
         }
     }
 
-    // ✅ Handle Logout (Only if logout button exists)
     const logoutButton = document.getElementById("logout-button");
     if (logoutButton) {
         logoutButton.addEventListener("click", function () {
             firebase.auth().signOut()
                 .then(() => {
-                    console.log("✅ User logged out");
-                    alert("✅ Logout successful!");
+                    console.log("User logged out");
+                    alert("Logout successful!");
                     window.location.reload();
                 })
                 .catch(error => {
-                    console.error("❌ Logout Error:", error.message);
+                    console.error("Logout Error:", error.message);
                 });
         });
     }
 
-    // ✅ Track Authentication State
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
-            document.getElementById("auth-status").innerText = `✅ Logged in as ${user.email}`;
+            document.getElementById("auth-status").innerText = `Logged in as ${user.email}`;
             document.getElementById("logout-button").style.display = "block";
-            localStorage.setItem("userLoggedIn", "true");  // ✅ Store login state
+            localStorage.setItem("userLoggedIn", "true");  
         } else {
-            document.getElementById("auth-status").innerText = "❌ Not logged in";
+            document.getElementById("auth-status").innerText = "Not logged in";
             document.getElementById("logout-button").style.display = "none";
-            localStorage.setItem("userLoggedIn", "false"); // ❌ Store logout state
+            localStorage.setItem("userLoggedIn", "false"); 
         }
     });    
 });
