@@ -9,7 +9,6 @@ db = firestore.Client()
 templates = Jinja2Templates(directory="templates")
 drivers_ref = db.collection("drivers")
 
-# ✅ Add a Driver
 @router.post("/add_driver")
 def add_driver(driver: Driver):
     if drivers_ref.document(driver.name).get().exists:
@@ -18,7 +17,6 @@ def add_driver(driver: Driver):
     drivers_ref.document(driver.name).set(driver.dict())
     return {"message": "Driver added successfully"}
 
-# ✅ Get a Driver by Name
 @router.get("/get_driver/{name}")
 def get_driver(name: str):
     driver_doc = drivers_ref.document(name).get()
@@ -33,21 +31,20 @@ def update_driver(name: str, updated_data: dict):
         raise HTTPException(status_code=404, detail="Driver not found")
 
     try:
-        # ✅ Use Firestore `update` method to modify only changed fields
         drivers_ref.document(name).update(updated_data)
-        return {"message": f"✅ Driver '{name}' updated successfully!"}
+        return {"message": f"Driver '{name}' updated successfully!"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Update failed: {str(e)}")
 
 @router.delete("/delete_driver/{name}")
 def delete_driver(name: str, token: str = Depends(verify_user)):
-    """ ✅ Only logged-in users can delete drivers """
+    """ Only logged-in users can delete drivers """
     driver_doc = drivers_ref.document(name).get()
     if not driver_doc.exists:
         raise HTTPException(status_code=404, detail="Driver not found")
     
     drivers_ref.document(name).delete()
-    return {"message": "✅ Driver deleted successfully"}
+    return {"message": "Driver deleted successfully"}
 
 @router.get("/query_drivers")
 def query_drivers(
@@ -55,7 +52,7 @@ def query_drivers(
     condition: str = Query(..., description="Comparison condition ('greater', 'less', 'equal')"),
     value: float = Query(..., description="Value to compare against")
 ):
-    """ ✅ Query drivers based on an attribute """
+    """ Query drivers based on an attribute """
     operators = {
         "greater": ">", 
         "less": "<", 
@@ -65,7 +62,6 @@ def query_drivers(
     if condition not in operators:
         raise HTTPException(status_code=400, detail="Invalid condition")
 
-    # Firestore requires a special approach for filtering
     if condition == "greater":
         query = drivers_ref.where(attribute, ">", value).stream()
     elif condition == "less":
@@ -97,7 +93,6 @@ def compare_drivers(
     driver1_data = doc1.to_dict()
     driver2_data = doc2.to_dict()
 
-    # Compare stats and highlight better ones
     comparison = {}
     for key in ["total_pole_positions", "total_race_wins", "total_points_scored", "total_world_titles", "total_fastest_laps"]:
         if driver1_data[key] > driver2_data[key]:
