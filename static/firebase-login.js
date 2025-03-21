@@ -12,7 +12,7 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("🔥 Firebase script loaded!");
+    console.log("Firebase script loaded!");
 
     const loginForm = document.getElementById("login-form");
     if (loginForm) {
