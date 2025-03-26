@@ -1,93 +1,127 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query Teams</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">🏁 F1 PaaS</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="/">🏠 Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/add_driver">➕  Add  Driver</a></li>
+                <li class="nav-item"><a class="nav-link" href="/add_team">➕ Add Team</a></li>
+                <li class="nav-item"><a class="nav-link" href="/query_drivers">🔍 Query Drivers</a></li>
+                <li class="nav-item"><a class="nav-link" href="/query_teams">🔍 Query Teams</a></li>
+                <li class="nav-item"><a class="nav-link" href="/compare_drivers">⚖ Compare Drivers</a></li>
+                <li class="nav-item"><a class="nav-link" href="/compare_teams">⚖ Compare Teams</a></li>
+            </ul>
 
-{% block title %}Query Teams{% endblock %}
+            <div class="ms-auto">
+                <span id="auth-status">Not logged in</span>
+                <button id="logout-button" class="btn btn-danger btn-sm" style="display:none;">Logout</button>
+            </div>
+        </div>
+    </nav>
 
-{% block content %}
-<h1>Query Teams</h1>
+    <div class="content">
+        <h1>Query Teams</h1>
 
-<form id="query-team-form">
-    <label for="attribute">Select Attribute:</label>
-    <select id="attribute">
-        <option value="year_founded">Year Founded</option>
-        <option value="total_pole_positions">Total Pole Positions</option>
-        <option value="total_race_wins">Total Race Wins</option>
-        <option value="total_constructor_titles">Total Constructor Titles</option>
-    </select>
+        <form id="query-team-form">
+            <label for="attribute">Select Attribute:</label>
+            <select id="attribute">
+                <option value="year_founded">Year Founded</option>
+                <option value="total_pole_positions">Total Pole Positions</option>
+                <option value="total_race_wins">Total Race Wins</option>
+                <option value="total_constructor_titles">Total Constructor Titles</option>
+            </select>
 
-    <label for="condition">Condition:</label>
-    <select id="condition">
-        <option value="greater">Greater than</option>
-        <option value="less">Less than</option>
-        <option value="equal">Equal to</option>
-    </select>
+            <label for="condition">Condition:</label>
+            <select id="condition">
+                <option value="greater">Greater than</option>
+                <option value="less">Less than</option>
+                <option value="equal">Equal to</option>
+            </select>
 
-    <input type="number" id="value" required>
-    <button type="submit">Search</button>
-</form>
+            <input type="number" id="value" required>
+            <button type="submit">Search</button>
+        </form>
 
-<div id="results"></div>
+        <div id="results"></div>
+    </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        fetch("/teams/query_teams?attribute=year_founded&condition=greater&value=0")
-            .then(response => response.json())
-            .then(data => {
-                let resultsDiv = document.getElementById("results");
-                resultsDiv.innerHTML = "<h2>Teams:</h2>";
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch("/teams/query_teams?attribute=year_founded&condition=greater&value=0")
+                .then(response => response.json())
+                .then(data => {
+                    let resultsDiv = document.getElementById("results");
+                    resultsDiv.innerHTML = "<h2>Teams:</h2>";
+
+                    if (data.length === 0) {
+                        resultsDiv.innerHTML += "<p>No teams found.</p>";
+                        return;
+                    }
+
+                    data.forEach(team => {
+                        resultsDiv.innerHTML += `
+                            <p>
+                                <a href="/teams/details/${encodeURIComponent(team.name)}">
+                                    ${team.name}
+                                </a> - Founded: ${team.year_founded}
+                            </p>
+                        `;
+                    });
+                })
+                .catch(error => {
+                    console.error("Error fetching teams:", error);
+                    alert("Failed to load teams.");
+                });
+        });
+
+        document.getElementById("query-team-form").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const attribute = document.getElementById("attribute").value;
+            const condition = document.getElementById("condition").value;
+            const value = document.getElementById("value").value;
+
+            try {
+                const response = await fetch(`/teams/query_teams?attribute=${attribute}&condition=${condition}&value=${value}`);
+                const data = await response.json();
+
+                const resultsDiv = document.getElementById("results");
+                resultsDiv.innerHTML = "<h2>Query Results:</h2>";
 
                 if (data.length === 0) {
                     resultsDiv.innerHTML += "<p>No teams found.</p>";
-                    return;
+                } else {
+                    data.forEach(team => {
+                        resultsDiv.innerHTML += `
+                            <p>
+                                <a href="/teams/details/${encodeURIComponent(team.name)}">
+                                    ${team.name}
+                                </a> - ${team[attribute]}
+                            </p>`;
+                    });
                 }
-
-                data.forEach(team => {
-                    resultsDiv.innerHTML += `
-                        <p>
-                            <a href="/teams/details/${encodeURIComponent(team.name)}">
-                                ${team.name}
-                            </a> - Founded: ${team.year_founded}
-                        </p>
-                    `;
-                });
-            })
-            .catch(error => {
-                console.error("Error fetching teams:", error);
-                alert("Failed to load teams.");
-            });
-    });
-
-    document.getElementById("query-team-form").addEventListener("submit", async function(event) {
-        event.preventDefault();
-
-        const attribute = document.getElementById("attribute").value;
-        const condition = document.getElementById("condition").value;
-        const value = document.getElementById("value").value;
-
-        try {
-            const response = await fetch(`/teams/query_teams?attribute=${attribute}&condition=${condition}&value=${value}`);
-            const data = await response.json();
-
-            const resultsDiv = document.getElementById("results");
-            resultsDiv.innerHTML = "<h2>Query Results:</h2>";
-
-            if (data.length === 0) {
-                resultsDiv.innerHTML += "<p>No teams found.</p>";
-            } else {
-                data.forEach(team => {
-                    resultsDiv.innerHTML += `
-                        <p>
-                            <a href="/teams/details/${encodeURIComponent(team.name)}">
-                                ${team.name}
-                            </a> - ${team[attribute]}
-                        </p>`;
-                });
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Failed to query teams. Check console for details.");
             }
-        } catch (error) {
-            console.error("Error:", error);
-            alert("Failed to query teams. Check console for details.");
-        }
-    });
-</script>
+        });
+    </script>
 
-<script src="/static/scripts.js"></script>
-{% endblock %}
+    <script src="/static/scripts.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="/static/firebase-login.js"></script>
+</body>
+</html>

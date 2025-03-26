@@ -1,0 +1,9 @@
+runtime: python312  # Use Python 3.13
+entrypoint: uvicorn main:app --host=0.0.0.0 --port=$PORT
+
+handlers:
+- url: /static
+  static_dir: static
+
+- url: /.*
+  script: auto

@@ -5,7 +5,7 @@ from authentication import verify_user
 from fastapi.templating import Jinja2Templates
 
 router = APIRouter()
-db = firestore.Client()
+db = firestore.Client(database="f1-paas-db")
 templates = Jinja2Templates(directory="templates")
 drivers_ref = db.collection("drivers")
 

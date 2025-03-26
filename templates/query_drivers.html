@@ -1,57 +1,92 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query Drivers</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">🏁 F1 PaaS</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="/">🏠 Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/add_driver">➕  Add  Driver</a></li>
+                <li class="nav-item"><a class="nav-link" href="/add_team">➕ Add Team</a></li>
+                <li class="nav-item"><a class="nav-link" href="/query_drivers">🔍 Query Drivers</a></li>
+                <li class="nav-item"><a class="nav-link" href="/query_teams">🔍 Query Teams</a></li>
+                <li class="nav-item"><a class="nav-link" href="/compare_drivers">⚖ Compare Drivers</a></li>
+                <li class="nav-item"><a class="nav-link" href="/compare_teams">⚖ Compare Teams</a></li>
+            </ul>
 
-{% block content %}
-<h1>Query Drivers</h1>
+            <div class="ms-auto">
+                <span id="auth-status">Not logged in</span>
+                <button id="logout-button" class="btn btn-danger btn-sm" style="display:none;">Logout</button>
+            </div>
+        </div>
+    </nav>
 
-<form id="query-driver-form">
-    <label>Attribute:</label>
-    <select id="attribute">
-        <option value="age">Age</option>
-        <option value="total_pole_positions">Total Pole Positions</option>
-        <option value="total_race_wins">Total Race Wins</option>
-        <option value="total_points_scored">Total Points Scored</option>
-        <option value="total_world_titles">Total World Titles</option>
-        <option value="total_fastest_laps">Total Fastest Laps</option>
-    </select><br>
+    <div class="content">
+        <h1>Query Drivers</h1>
 
-    <label>Condition:</label>
-    <select id="condition">
-        <option value="greater">Greater Than</option>
-        <option value="less">Less Than</option>
-        <option value="equal">Equal To</option>
-    </select><br>
+        <form id="query-driver-form">
+            <label>Attribute:</label>
+            <select id="attribute">
+                <option value="age">Age</option>
+                <option value="total_pole_positions">Total Pole Positions</option>
+                <option value="total_race_wins">Total Race Wins</option>
+                <option value="total_points_scored">Total Points Scored</option>
+                <option value="total_world_titles">Total World Titles</option>
+                <option value="total_fastest_laps">Total Fastest Laps</option>
+            </select><br>
 
-    <label>Value:</label>
-    <input type="number" id="value" required><br>
+            <label>Condition:</label>
+            <select id="condition">
+                <option value="greater">Greater Than</option>
+                <option value="less">Less Than</option>
+                <option value="equal">Equal To</option>
+            </select><br>
 
-    <button type="submit">Query</button>
-</form>
+            <label>Value:</label>
+            <input type="number" id="value" required><br>
 
-<div id="results"></div>
+            <button type="submit">Query</button>
+        </form>
 
-<div id="update-driver-form" style="display:none;">
-    <h2>Update Driver</h2>
-    <input type="text" id="update-name" readonly>
-    <input type="number" id="update-age" placeholder="Age">
-    <input type="number" id="update-race-wins" placeholder="Race Wins">
-    <button id="update-driver-button">Update</button>
-</div>
+        <div id="results"></div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        fetch("/drivers/query_drivers?attribute=age&condition=greater&value=0")
-            .then(response => response.json())
-            .then(data => {
-                let resultsDiv = document.getElementById("results");
-                resultsDiv.innerHTML = "<h2>Drivers:</h2>";
+        <div id="update-driver-form" style="display:none;">
+            <h2>Update Driver</h2>
+            <input type="text" id="update-name" readonly>
+            <input type="number" id="update-age" placeholder="Age">
+            <input type="number" id="update-race-wins" placeholder="Race Wins">
+            <button id="update-driver-button">Update</button>
+        </div>
+    </div>
 
-                data.forEach(driver => {
-                    resultsDiv.innerHTML += `<p><a href="/drivers/details?name=${encodeURIComponent(driver.name)}">${driver.name}</a></p>`;
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch("/drivers/query_drivers?attribute=age&condition=greater&value=0")
+                .then(response => response.json())
+                .then(data => {
+                    let resultsDiv = document.getElementById("results");
+                    resultsDiv.innerHTML = "<h2>Drivers:</h2>";
+
+                    data.forEach(driver => {
+                        resultsDiv.innerHTML += `<p><a href="/drivers/details?name=${encodeURIComponent(driver.name)}">${driver.name}</a></p>`;
+                    });
                 });
-            });
-    });
-</script>
+        });
+    </script>
 
-<script src="/static/scripts.js"></script>
-{% endblock %}
-
+    <script src="/static/scripts.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="/static/firebase-login.js"></script>
+</body>
+</html>

@@ -1,66 +1,98 @@
-{% extends "base.html" %}
-
-{% block title %}Compare Teams{% endblock %}
-
-{% block content %}
-<h1>Compare Two Teams</h1>
-<form id="compare-form">
-    <label for="team1">First Team:</label>
-    <input type="text" id="team1" placeholder="Enter Team 1 Name" required>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Teams</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">🏁 F1 PaaS</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="/">🏠 Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/add_driver">➕  Add  Driver</a></li>
+                <li class="nav-item"><a class="nav-link" href="/add_team">➕ Add Team</a></li>
+                <li class="nav-item"><a class="nav-link" href="/query_drivers">🔍 Query Drivers</a></li>
+                <li class="nav-item"><a class="nav-link" href="/query_teams">🔍 Query Teams</a></li>
+                <li class="nav-item"><a class="nav-link" href="/compare_drivers">⚖ Compare Drivers</a></li>
+                <li class="nav-item"><a class="nav-link" href="/compare_teams">⚖ Compare Teams</a></li>
+            </ul>
+            <div class="ms-auto">
+                <span id="auth-status">Not logged in</span>
+                <button id="logout-button" class="btn btn-danger btn-sm" style="display:none;">Logout</button>
+            </div>
+        </div>
+    </nav>
     
-    <label for="team2">Second Team:</label>
-    <input type="text" id="team2" placeholder="Enter Team 2 Name" required>
-
-    <button type="submit">Compare</button>
-</form>
-
-<div id="comparison-results"></div>
-
-<script>
-    document.getElementById("compare-form").addEventListener("submit", function(event) {
-        event.preventDefault();
+    <h1>Compare Two Teams</h1>
+    <form id="compare-form">
+        <label for="team1">First Team:</label>
+        <input type="text" id="team1" placeholder="Enter Team 1 Name" required>
         
-        const team1 = document.getElementById("team1").value.trim();
-        const team2 = document.getElementById("team2").value.trim();
-        
-        if (!team1 || !team2) {
-            alert("Please enter both team names!");
-            return;
-        }
-
-        fetch(`/teams/compare_teams?team1=${encodeURIComponent(team1)}&team2=${encodeURIComponent(team2)}`)
-        .then(response => response.json())
-        .then(data => {
-            let resultHTML = `<h2>Comparison: ${team1} vs ${team2}</h2>`;
-            resultHTML += `<table border="1">
-                <tr><th>Stat</th><th>${team1}</th><th>${team2}</th></tr>`;
-
-                for (const [stat, values] of Object.entries(data.comparison)) {
-                let highlight1 = "", highlight2 = "";
-
-                if (stat === "year_founded" || stat === "previous_season_position") {
-                    highlight1 = values[team1] < values[team2] ? "highlight-lower" : "";
-                    highlight2 = values[team2] < values[team1] ? "highlight-lower" : "";
-                } else {
-                    highlight1 = values[team1] > values[team2] ? "highlight-green" : "";
-                    highlight2 = values[team2] > values[team1] ? "highlight-green" : "";
-                }
-
-                resultHTML += `<tr>
-                    <td>${stat.replaceAll("_", " ")}</td>
-                    <td class="${highlight1}">${values[team1]}</td>
-                    <td class="${highlight2}">${values[team2]}</td>
-                </tr>`;
+        <label for="team2">Second Team:</label>
+        <input type="text" id="team2" placeholder="Enter Team 2 Name" required>
+    
+        <button type="submit">Compare</button>
+    </form>
+    
+    <div id="comparison-results"></div>
+    
+    <script>
+        document.getElementById("compare-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const team1 = document.getElementById("team1").value.trim();
+            const team2 = document.getElementById("team2").value.trim();
+            
+            if (!team1 || !team2) {
+                alert("Please enter both team names!");
+                return;
             }
-
-            resultHTML += "</table>";
-            document.getElementById("comparison-results").innerHTML = resultHTML;
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("Failed to compare teams. Make sure both teams exist.");
+    
+            fetch(`/teams/compare_teams?team1=${encodeURIComponent(team1)}&team2=${encodeURIComponent(team2)}`)
+            .then(response => response.json())
+            .then(data => {
+                let resultHTML = `<h2>Comparison: ${team1} vs ${team2}</h2>`;
+                resultHTML += `<table border="1">
+                    <tr><th>Stat</th><th>${team1}</th><th>${team2}</th></tr>`;
+    
+                for (const [stat, values] of Object.entries(data.comparison)) {
+                    let highlight1 = "", highlight2 = "";
+    
+                    if (stat === "year_founded" || stat === "previous_season_position") {
+                        highlight1 = values[team1] < values[team2] ? "highlight-lower" : "";
+                        highlight2 = values[team2] < values[team1] ? "highlight-lower" : "";
+                    } else {
+                        highlight1 = values[team1] > values[team2] ? "highlight-green" : "";
+                        highlight2 = values[team2] > values[team1] ? "highlight-green" : "";
+                    }
+    
+                    resultHTML += `<tr>
+                        <td>${stat.replaceAll("_", " ")}</td>
+                        <td class="${highlight1}">${values[team1]}</td>
+                        <td class="${highlight2}">${values[team2]}</td>
+                    </tr>`;
+                }
+    
+                resultHTML += "</table>";
+                document.getElementById("comparison-results").innerHTML = resultHTML;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Failed to compare teams. Make sure both teams exist.");
+            });
         });
-    });
-</script>
-
-{% endblock %}
+    </script>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="/static/firebase-login.js"></script>
+    <script src="/static/scripts.js"></script>
+</body>
+</html>

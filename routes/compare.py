@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException
 from google.cloud import firestore
 
 router = APIRouter()
-db = firestore.Client()
+db = firestore.Client(database="f1-paas-db")
 teams_ref = db.collection("teams")
 
 @router.get("/compare/teams/{team1}/{team2}")

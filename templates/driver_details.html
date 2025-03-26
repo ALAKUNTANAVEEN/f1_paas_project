@@ -1,35 +1,67 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Details</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">🏁 F1 PaaS</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="/">🏠 Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/add_driver">➕  Add  Driver</a></li>
+                <li class="nav-item"><a class="nav-link" href="/add_team">➕ Add Team</a></li>
+                <li class="nav-item"><a class="nav-link" href="/query_drivers">🔍 Query Drivers</a></li>
+                <li class="nav-item"><a class="nav-link" href="/query_teams">🔍 Query Teams</a></li>
+                <li class="nav-item"><a class="nav-link" href="/compare_drivers">⚖ Compare Drivers</a></li>
+                <li class="nav-item"><a class="nav-link" href="/compare_teams">⚖ Compare Teams</a></li>
+            </ul>
+            <div class="ms-auto">
+                <span id="auth-status">Not logged in</span>
+                <button id="logout-button" class="btn btn-danger btn-sm" style="display:none;">Logout</button>
+            </div>
+        </div>
+    </nav>
 
-{% block title %}Driver Details{% endblock %}
+    <div class="content">
+        <h1>Driver Details</h1>
+        <div id="driver-info">
+            <p><strong>Name:</strong> <span id="driver-name">{{ driver.name }}</span></p>
+            <p><strong>Age:</strong> <span id="driver-age">{{ driver.age }}</span></p>
+            <p><strong>Total Race Wins:</strong> <span id="driver-race-wins">{{ driver.total_race_wins }}</span></p>
+            <p><strong>Total Pole Positions:</strong> <span id="driver-pole-positions">{{ driver.total_pole_positions }}</span></p>
+        </div>
 
-{% block content %}
-<h1>Driver Details</h1>
+        {% if request.session.get("user_logged_in") %}
+            <form id="delete-driver-form">
+                <button type="button" id="delete-driver-btn" class="btn btn-danger">🗑 Delete</button>
+            </form>
+        {% endif %}
+    </div>
 
-<div id="driver-info">
-    <p><strong>Name:</strong> <span id="driver-name">{{ driver.name }}</span></p>
-    <p><strong>Age:</strong> <span id="driver-age">{{ driver.age }}</span></p>
-    <p><strong>Total Race Wins:</strong> <span id="driver-race-wins">{{ driver.total_race_wins }}</span></p>
-    <p><strong>Total Pole Positions:</strong> <span id="driver-pole-positions">{{ driver.total_pole_positions }}</span></p>
-</div>
+    <script>
+        document.getElementById("delete-driver-btn")?.addEventListener("click", async function () {
+            const driverName = "{{ driver.name }}";
+            const response = await fetch(`/drivers/delete_driver/${driverName}`, { method: "DELETE" });
+            if (response.ok) {
+                alert("Driver deleted successfully!");
+                window.location.href = "/";
+            } else {
+                alert("Failed to delete driver.");
+            }
+        });
+    </script>
 
-{% if request.session.get("user_logged_in") %}
-    <form id="delete-driver-form">
-        <button type="button" id="delete-driver-btn" class="btn btn-danger">🗑 Delete</button>
-    </form>
-{% endif %}
-
-<script>
-    document.getElementById("delete-driver-btn")?.addEventListener("click", async function () {
-        const driverName = "{{ driver.name }}";
-
-        const response = await fetch(`/drivers/delete_driver/${driverName}`, { method: "DELETE" });
-
-        if (response.ok) {
-            alert("Driver deleted successfully!");
-            window.location.href = "/";
-        } else {
-            alert("Failed to delete driver.");
-        }
-    });
-</script>
-{% endblock %}
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="/static/firebase-login.js"></script>
+    <script src="/static/scripts.js"></script>
+</body>
+</html>

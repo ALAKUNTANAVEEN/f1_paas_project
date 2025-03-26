@@ -1,30 +1,70 @@
-{% extends "base.html" %}
-
-{% block title %}Home{% endblock %}
-
-{% block content %}
-<div class="hero-section">
-    <h1>Welcome to F1 PaaS</h1>
-    <p>The ultimate platform for managing F1 drivers, teams, and comparisons.</p>
-    <a href="/query_drivers" class="btn">View Drivers</a>
-    <a href="/query_teams" class="btn">View Teams</a>
-</div>
-
-<div class="features-section">
-    <h2>Features</h2>
-    <div class="feature-grid">
-        <div class="feature">
-            <h3>🏎 Manage Drivers</h3>
-            <p>Add, update, and track F1 drivers' statistics.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">🏁 F1 PaaS</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="/">🏠 Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/add_driver">➕  Add  Driver</a></li>
+                <li class="nav-item"><a class="nav-link" href="/add_team">➕ Add Team</a></li>
+                <li class="nav-item"><a class="nav-link" href="/query_drivers">🔍 Query Drivers</a></li>
+                <li class="nav-item"><a class="nav-link" href="/query_teams">🔍 Query Teams</a></li>
+                <li class="nav-item"><a class="nav-link" href="/compare_drivers">⚖ Compare Drivers</a></li>
+                <li class="nav-item"><a class="nav-link" href="/compare_teams">⚖ Compare Teams</a></li>
+            </ul>
+            <div class="ms-auto">
+                <span id="auth-status">Not logged in</span>
+                <button id="logout-button" class="btn btn-danger btn-sm" style="display:none;">Logout</button>
+            </div>
         </div>
-        <div class="feature">
-            <h3>🏁 Manage Teams</h3>
-            <p>Keep track of F1 teams, their history, and performance.</p>
-        </div>
-        <div class="feature">
-            <h3>⚖ Compare Stats</h3>
-            <p>Compare drivers and teams side by side with highlighted performance.</p>
+    </nav>
+
+    <div class="hero-section">
+        <h1>Welcome to F1 PaaS</h1>
+        <p>The ultimate platform for managing F1 drivers, teams, and comparisons.</p>
+        <a href="/query_drivers" class="btn">View Drivers</a>
+        <a href="/query_teams" class="btn">View Teams</a>
+    </div>
+
+    <div class="features-section">
+        <h2>Features</h2>
+        <div class="feature-grid">
+            <div class="feature">
+                <h3>🏎 Manage Drivers</h3>
+                <p>Add, update, and track F1 drivers' statistics.</p>
+            </div>
+            <div class="feature">
+                <h3>🏁 Manage Teams</h3>
+                <p>Keep track of F1 teams, their history, and performance.</p>
+            </div>
+            <div class="feature">
+                <h3>⚖ Compare Stats</h3>
+                <p>Compare drivers and teams side by side with highlighted performance.</p>
+            </div>
         </div>
     </div>
-</div>
-{% endblock %}
+
+    <div id="login-form" class="container mt-3">
+        <h3>Login</h3>
+        <input type="email" id="email" placeholder="Email" class="form-control">
+        <input type="password" id="password" placeholder="Password" class="form-control mt-2">
+        <button id="submit-login" class="btn btn-primary mt-2">Login</button>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="/static/firebase-login.js"></script>
+    <script src="/static/scripts.js"></script>
+</body>
+</html>
