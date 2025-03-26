@@ -6,7 +6,6 @@ body {
     padding: 0;
 }
 
-/* Navbar Styling */
 .navbar {
     background: #343a40 !important;
     padding: 10px 20px;
@@ -28,7 +27,6 @@ body {
     background: #495057;
 }
 
-/* Container & Content */
 .container {
     max-width: 900px;
     margin: 20px auto;
@@ -38,14 +36,12 @@ body {
     border-radius: 10px;
 }
 
-/* Headings */
 h1, h2 {
     color: #212529;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
-/* Form Styling */
 form {
     background: #ffffff;
     padding: 20px;
@@ -73,7 +69,6 @@ input:focus, select:focus {
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
 }
 
-/* Button Styling */
 button {
     background: #007bff;
     color: white;
@@ -88,7 +83,6 @@ button:hover {
     background: #0056b3;
 }
 
-/* Delete Button */
 .btn-danger {
     background: #dc3545;
 }
@@ -97,7 +91,6 @@ button:hover {
     background: #b02a37;
 }
 
-/* Query Results Styling */
 #results {
     margin-top: 20px;
     padding: 10px;
@@ -110,7 +103,6 @@ button:hover {
     border-bottom: 1px solid #ccc;
 }
 
-/* Table Styling */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -132,13 +124,11 @@ tr:nth-child(even) {
     background: #f8f9fa;
 }
 
-/* Authentication Status */
 #auth-status {
     font-weight: bold;
     margin-right: 15px;
 }
 
-/* Mobile Responsiveness */
 @media (max-width: 768px) {
     .container {
         width: 90%;
@@ -159,7 +149,6 @@ tr:nth-child(even) {
     }
 }
 
-/* General Styling */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f8f9fa;
@@ -168,7 +157,6 @@ body {
     padding: 0;
 }
 
-/* Main Content Layout */
 .container {
     max-width: 900px;
     margin: 20px auto;
@@ -178,14 +166,12 @@ body {
     border-radius: 10px;
 }
 
-/* Headings */
 h1, h2 {
     color: #212529;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
-/* --- Navbar Styling --- */
 .navbar {
     background: #343a40 !important;
     padding: 10px 20px;
@@ -207,7 +193,6 @@ h1, h2 {
     background: #495057;
 }
 
-/* --- Form Styling --- */
 form {
     background: #ffffff;
     padding: 20px;
@@ -236,7 +221,6 @@ input:focus, select:focus {
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
 }
 
-/* --- Buttons --- */
 button, .btn {
     background: #007bff;
     color: white;
@@ -253,7 +237,6 @@ button:hover, .btn:hover {
     background: #0056b3;
 }
 
-/* Delete Button */
 .btn-danger {
     background: #dc3545;
 }
@@ -262,7 +245,6 @@ button:hover, .btn:hover {
     background: #b02a37;
 }
 
-/* --- Driver & Team Forms (add_driver.html, add_team.html) --- */
 .driver-form, .team-form {
     max-width: 600px;
     margin: 20px auto;
@@ -272,7 +254,6 @@ button:hover, .btn:hover {
     text-align: center;
 }
 
-/* --- Query Results Styling (query_drivers.html, query_teams.html) --- */
 .query-results {
     margin-top: 20px;
     padding: 10px;
@@ -285,7 +266,6 @@ button:hover, .btn:hover {
     border-bottom: 1px solid #ccc;
 }
 
-/* --- Table Styling (query, compare pages) --- */
 .table-container {
     margin-top: 20px;
     overflow-x: auto;
@@ -312,7 +292,6 @@ tr:nth-child(even) {
     background: #f8f9fa;
 }
 
-/* --- Compare Pages (compare_drivers.html, compare_teams.html) --- */
 .compare-container {
     display: flex;
     justify-content: space-between;
@@ -333,7 +312,6 @@ tr:nth-child(even) {
     font-size: 1.5rem;
 }
 
-/* --- Team & Driver Details Pages (team_details.html, driver_details.html) --- */
 .details-container {
     padding: 20px;
     background: white;
@@ -346,7 +324,6 @@ tr:nth-child(even) {
     margin-bottom: 10px;
 }
 
-/* --- Home Page (index.html) --- */
 .home-welcome {
     text-align: center;
     font-size: 1.5rem;
@@ -359,13 +336,11 @@ tr:nth-child(even) {
     text-align: center;
 }
 
-/* --- Authentication Status --- */
 #auth-status {
     font-weight: bold;
     margin-right: 15px;
 }
 
-/* --- Mobile Responsiveness --- */
 @media (max-width: 768px) {
     .container {
         width: 90%;
@@ -391,13 +366,6 @@ tr:nth-child(even) {
     }
 }
 
-
-
-
-
-
-
-/* General Styling */
 body {
     background-color: #f8f9fa;
     font-family: 'Arial', sans-serif;
@@ -405,7 +373,6 @@ body {
     padding-top: 20px;
 }
 
-/* Navbar Styling */
 .navbar {
     background-color: #343a40 !important;
 }
@@ -424,7 +391,6 @@ body {
     margin-right: 10px;
 }
 
-/* Page Header */
 h1 {
     text-align: center;
     color: #343a40;
@@ -432,7 +398,6 @@ h1 {
     font-weight: bold;
 }
 
-/* Content Box Styling */
 .content, #comparison-results, #driver-info, #team-info, #query-driver-form, form {
     max-width: 600px;
     margin: 20px auto;
@@ -442,7 +407,6 @@ h1 {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Form Styling */
 form label {
     font-weight: bold;
     margin-top: 10px;
@@ -477,7 +441,6 @@ button.btn-primary:hover {
     background-color: #0056b3;
 }
 
-/* Logout and Delete Button Styling */
 #logout-button, .btn-danger {
     background-color: #dc3545;
 }
@@ -486,7 +449,6 @@ button.btn-primary:hover {
     background-color: #b02a37;
 }
 
-/* Table Styling */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -509,7 +471,6 @@ tr:nth-child(even) {
     background: #f2f2f2;
 }
 
-/* Highlighted Cells */
 .highlight-green {
     background-color: #28a745;
     color: white;
@@ -521,7 +482,6 @@ tr:nth-child(even) {
     font-weight: bold;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .content {
         padding: 20px;
@@ -531,9 +491,6 @@ tr:nth-child(even) {
     }
 }
 
-
-
-/* General Styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
@@ -541,7 +498,6 @@ body {
     text-align: center;
 }
 
-/* Navbar Styling */
 .navbar {
     padding: 15px;
     border-radius: 8px;
@@ -564,7 +520,6 @@ body {
     gap: 10px;
 }
 
-/* Hero Section */
 .hero-section {
     margin: 40px auto;
     padding: 40px;
@@ -599,7 +554,6 @@ body {
     background-color: #0056b3;
 }
 
-/* Features Section */
 .features-section {
     margin: 40px auto;
     padding: 40px;
@@ -638,7 +592,6 @@ body {
     color: #555;
 }
 
-/* Login Form */
 #login-form {
     max-width: 400px;
     margin: 40px auto;
@@ -664,7 +617,6 @@ body {
     font-size: 1.2rem;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .feature-grid {
         flex-direction: column;

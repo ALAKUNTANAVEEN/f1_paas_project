@@ -1,4 +1,5 @@
 # Ignore compiled Python files
+venv/
 __pycache__/
 *.pyc
 
@@ -7,3 +8,9 @@ __pycache__/
 serviceAccountKey.json
  
 test_firestore.py
+
+# OS and editor-specific files
+.DS_Store
+.vscode/
+.idea/
+*.log
